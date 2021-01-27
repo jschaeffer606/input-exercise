@@ -10,7 +10,9 @@ namespace InputExample
         private SpriteBatch spriteBatch;
         private Ball[] balls;
 
-
+        /// <summary>
+        /// Constructs the game
+        /// </summary>
         public InputExampleGame()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -18,6 +20,9 @@ namespace InputExample
             IsMouseVisible = true;
         }
 
+        /// <summary>
+        /// Initializes the game
+        /// </summary>
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
@@ -29,6 +34,9 @@ namespace InputExample
             base.Initialize();
         }
 
+        /// <summary>
+        /// Loads game content
+        /// </summary>
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
@@ -37,6 +45,10 @@ namespace InputExample
             foreach (Ball b in balls) b.LoadContent();
         }
 
+        /// <summary>
+        /// Updates the game
+        /// </summary>
+        /// <param name="gameTime">The game time</param>
         protected override void Update(GameTime gameTime)
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
@@ -47,6 +59,10 @@ namespace InputExample
             base.Update(gameTime);
         }
 
+        /// <summary>
+        /// Draws the game
+        /// </summary>
+        /// <param name="gameTime">The game time</param>
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
