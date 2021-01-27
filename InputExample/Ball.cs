@@ -42,7 +42,7 @@ namespace InputExample
         /// </summary>
         public void LoadContent()
         {
-            texture = game.Content.Load<Texture2D>("ball");
+            texture = game.Content.Load<Texture2D>("basketball");
         }
 
         /// <summary>

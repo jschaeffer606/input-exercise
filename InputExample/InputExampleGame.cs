@@ -6,12 +6,14 @@ namespace InputExample
 {
     public class InputExampleGame : Game
     {
-        private GraphicsDeviceManager _graphics;
-        private SpriteBatch _spriteBatch;
+        private GraphicsDeviceManager graphics;
+        private SpriteBatch spriteBatch;
+        private Ball[] balls;
+
 
         public InputExampleGame()
         {
-            _graphics = new GraphicsDeviceManager(this);
+            graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
         }
@@ -19,15 +21,20 @@ namespace InputExample
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-
+            balls = new Ball[] {
+                new Ball(this, Color.Red) { Position = new Vector2(250, 200) },
+                new Ball(this, Color.Green) { Position = new Vector2(350, 200) },
+                new Ball(this, Color.Blue) { Position = new Vector2(450, 200) }
+            };
             base.Initialize();
         }
 
         protected override void LoadContent()
         {
-            _spriteBatch = new SpriteBatch(GraphicsDevice);
+            spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
+            foreach (Ball b in balls) b.LoadContent();
         }
 
         protected override void Update(GameTime gameTime)
@@ -45,6 +52,9 @@ namespace InputExample
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here
+            spriteBatch.Begin();
+            foreach (Ball b in balls) b.Draw(spriteBatch);
+            spriteBatch.End();
 
             base.Draw(gameTime);
         }
