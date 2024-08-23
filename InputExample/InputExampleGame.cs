@@ -1,14 +1,20 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System;
 
 namespace InputExample
 {
     public class InputExampleGame : Game
     {
+        Random random; 
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
         private Ball[] balls;
+        private InputManager inputManager;
+
+
+        
 
         /// <summary>
         /// Constructs the game
@@ -17,7 +23,8 @@ namespace InputExample
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-            IsMouseVisible = true;
+            IsMouseVisible = false;
+            inputManager = new InputManager();
         }
 
         /// <summary>
@@ -26,12 +33,14 @@ namespace InputExample
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
+            
             balls = new Ball[] {
                 new Ball(this, Color.Red) { Position = new Vector2(250, 200) },
                 new Ball(this, Color.Green) { Position = new Vector2(350, 200) },
                 new Ball(this, Color.Blue) { Position = new Vector2(450, 200) }
             };
             base.Initialize();
+            
         }
 
         /// <summary>
@@ -51,11 +60,30 @@ namespace InputExample
         /// <param name="gameTime">The game time</param>
         protected override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+
+            inputManager.Update(gameTime);
+
+           if(inputManager.Exit)
+            {
                 Exit();
+            }
 
             // TODO: Add your update logic here
 
+
+
+
+
+
+
+            balls[0].Position += inputManager.Direction;
+            if(inputManager.Warp)
+            {
+                balls[0].Warp();
+            }
+            
+
+            var capabilities = GamePad.GetCapabilities(0);
             base.Update(gameTime);
         }
 
